@@ -73,8 +73,8 @@ function Navbar() {
                     </>
                   )}
                   <Link href="/" className="hover:text-blue-300">Home</Link>
-                  <Link href="#projects" className="hover:text-blue-300">About Projects</Link>
-                  <Link href="https://github.com/yourusername" passHref>
+                  <Link href="https://github.com/Nithin9585/Resume2Video/blob/main/README.md" className="hover:text-blue-300">About Projects</Link>
+                  <Link href="https://github.com/Nithin9585/Resume2Video" passHref>
                     <FaGithub className="text-2xl hover:text-gray-400 cursor-pointer" />
                   </Link>
                 </div>
