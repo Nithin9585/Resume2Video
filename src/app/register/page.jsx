@@ -56,7 +56,7 @@ function Register() {
 
       localStorage.setItem('RegistrationData', JSON.stringify({ firstName, lastName, gender }));
 
-      setMessage('Registration successful. Verification email sent.');
+      setMessage('Registration successful. A verification email has been sent to your email address. Please verify your email before logging in.');
       
       setFirstName('');
       setLastName('');
@@ -66,7 +66,8 @@ function Register() {
       setConfirmPassword('');
       setError('');
 
-      router.push('/Login');
+      // Remove the immediate redirection to the login page
+      // router.push('/Login');
       
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {

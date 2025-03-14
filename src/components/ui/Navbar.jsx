@@ -58,7 +58,7 @@ function Navbar() {
                 <div className="flex p-10 flex-col gap-8 items-center">
                   {!user ? (
                     <>
-                      <Link href="/login" className="hover:text-blue-300">Login</Link>
+                      <Link href="/Login" className="hover:text-blue-300">Login</Link>
                       <Link href="/register" className="hover:text-blue-300">Sign Up</Link>
                     </>
                   ) : (
@@ -87,7 +87,7 @@ function Navbar() {
       <div className="hidden md:flex space-x-6">
         {!user ? (
           <>
-            <Link href="/login">
+            <Link href="/Login">
               <span className="px-4 py-2 hover:text-blue-300 transition duration-300 cursor-pointer">Login</span>
             </Link>
             <Link href="/register">

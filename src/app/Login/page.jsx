@@ -43,6 +43,13 @@ function Login() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Check if the user's email is verified
+      if (!user.emailVerified) {
+        setError('Please verify your email before logging in.');
+        setLoading(false);
+        return;
+      }
+
       const registrationData = localStorage.getItem('RegistrationData');
       const { firstName = '', lastName = '', gender = '' } = registrationData ? JSON.parse(registrationData) : {};
 
