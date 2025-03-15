@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import Loading from '../Loading';
+import { toast } from 'sonner';
 
 function ReviewResumePrompt() {
   const [script, setScript] = useState(''); // Store fetched script
@@ -47,11 +48,14 @@ function ReviewResumePrompt() {
 
   const handleToggleEditScript = () => {
     setIsEditingScript(!isEditingScript);
+    if (!isEditingScript) {
+      toast.info('You can now edit the script.');
+    }
   };
 
   const handleGenerateVideo = () => {
     console.log('Generating video with script:', script, 'and image:', imagePreview);
-    alert('Video generation initiated!');
+    toast.success('Video generation initiated!');
   };
 
   return (

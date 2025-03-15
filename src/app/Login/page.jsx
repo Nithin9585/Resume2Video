@@ -10,31 +10,27 @@ import { faEnvelope, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-s
 import Link from 'next/link';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { setCookie } from 'cookies-next';
+import { toast } from 'sonner';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setMessage('');
 
     if (!email.includes('@')) {
-      setError('Please enter a valid email address.');
+      toast.error('Please enter a valid email address.');
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      toast.error('Password must be at least 6 characters long.');
       setLoading(false);
       return;
     }
@@ -45,7 +41,7 @@ function Login() {
 
       // Check if the user's email is verified
       if (!user.emailVerified) {
-        setError('Please verify your email before logging in.');
+        toast.error('Please verify your email before logging in.');
         setLoading(false);
         return;
       }
@@ -69,21 +65,24 @@ function Login() {
       const idToken = await user.getIdToken();
       setCookie('token', idToken, { maxAge: 60 * 60, path: '/' });
 
+      toast.success('Login successful!');
       router.push('/');
 
     } catch (err) {
       if (err.code === 'auth/user-not-found') {
-        setError('No account found with this email address.');
+        toast.error('No account found with this email address.');
       } else if (err.code === 'auth/wrong-password') {
-        setError('Incorrect password. Please try again.');
+        toast.error('Incorrect password. Please try again.');
       } else {
-        setError('An unexpected error occurred. Please try again later.');
+        toast.error('An unexpected error occurred. Please try again later.');
       }
+      
       console.error('Login error: ', err);
     } finally {
       setLoading(false);
     }
 
+    // Clear input fields
     setEmail('');
     setPassword('');
   };
@@ -92,10 +91,6 @@ function Login() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-opacity-80 border-2 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md">
         <h1 className="text-3xl font-semibold text-center text-white mb-6">Login</h1>
-
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-        {message && <p className="text-green-500 text-center mb-4">{message}</p>}
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="relative">

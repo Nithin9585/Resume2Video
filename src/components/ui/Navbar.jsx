@@ -9,7 +9,6 @@ import { signOut } from 'firebase/auth';
 
 function Navbar() {
   const [user, setUser] = useState(null);
-  console.log(user);
   
 
   useEffect(() => {
@@ -105,11 +104,11 @@ function Navbar() {
             </button>
           </>
         )}
-        <Link href="#projects">
+        <Link href="https://github.com/Nithin9585/Resume2Video/blob/main/README.md">
           <span className="hover:text-blue-300 cursor-pointer">About Projects</span>
         </Link>
 
-        <Link href="https://github.com/yourusername" passHref>
+        <Link href="https://github.com/Nithin9585/Resume2Video" passHref>
           <FaGithub className="text-2xl hover:text-gray-400 cursor-pointer" />
         </Link>
       </div>

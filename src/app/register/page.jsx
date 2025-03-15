@@ -8,42 +8,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@/components/ui/button';
 import { faUser, faEnvelope, faLock, faTransgenderAlt, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 function Register() {
+  const [user, setUser] = useState(null);
+  
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const router = useRouter();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setMessage('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       setLoading(false);
       return;
     }
 
     if (!email.includes('@')) {
-      setError('Please enter a valid email address.');
+      toast.error('Please enter a valid email address.');
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      toast.error('Password must be at least 6 characters long.');
       setLoading(false);
       return;
     }
@@ -53,47 +52,39 @@ function Register() {
       const user = userCredential.user;
 
       await sendEmailVerification(user);
+     
 
       localStorage.setItem('RegistrationData', JSON.stringify({ firstName, lastName, gender }));
+      toast.success('Registration successful. A verification email has been sent to your email address. Please verify your email before logging in.');
 
-      setMessage('Registration successful. A verification email has been sent to your email address. Please verify your email before logging in.');
-      
       setFirstName('');
       setLastName('');
       setGender('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
-      setError('');
 
-      // Remove the immediate redirection to the login page
-      // router.push('/Login');
-      
+      router.push('/Login');
+
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
-        setError('This email is already registered.');
+        toast.error('This email is already registered.');
       } else if (err.code === 'auth/invalid-email') {
-        setError('Please enter a valid email address.');
+        toast.error('Please enter a valid email address.');
       } else if (err.code === 'auth/weak-password') {
-        setError('Password must be at least 6 characters long.');
+        toast.error('Password must be at least 6 characters long.');
       } else {
-        setError('An error occurred, please try again.');
+        toast.error('An error occurred, please try again.');
       }
     } finally {
       setLoading(false);
     }
   };
 
-  
-
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-opacity-80 border-2 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md">
         <h1 className="text-3xl font-semibold text-center text-white mb-6">Register</h1>
-
-        {message && <p className="text-green-500 text-center mb-4">{message}</p>}
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="relative">

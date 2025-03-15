@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Upload, ImagePlus, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { auth, firestore } from '../../../firebase/firebase';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import Loading from '../Loading';
+import { toast } from 'sonner';
 import * as pdfjsLib from 'pdfjs-dist/webpack';
 
 function Resume() {
@@ -57,23 +59,21 @@ function Resume() {
         throw new Error('File upload failed');
       }
       const data = await response.json();
-      console.log(data.url);
-
       if (data.url) {
         setUrl(data.url); 
       } else {
         throw new Error(data.message || 'File upload failed');
       }
     } catch (error) {
-      console.error("Upload Error:", error.message); 
-      throw new Error('image upload failed');
+      console.error("Upload Error:", error.message);
+      toast.error('Image upload failed. Please try again.');
     }
   };
 
-  const generateScript = async (resumeText)=>{
+  const generateScript = async (resumeText) => {
     const response = await fetch('/api/GenerateScript', {
       method: 'POST',
-      body: JSON.stringify({parsedResume: resumeText}),
+      body: JSON.stringify({ parsedResume: resumeText }),
     });
     const data = await response.json();
     return data.script;
@@ -110,13 +110,12 @@ function Resume() {
       fileReader.readAsArrayBuffer(file);
     });
   };
-  
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { 
-        alert('File size should not exceed 5MB');
+        toast.error('File size should not exceed 5MB');
         return;
       }
       if (type === 'resume') {
@@ -131,7 +130,7 @@ function Resume() {
 
   const handleSubmit = async () => {
     if (!resume || !image) {
-      alert('Please upload both resume and profile picture.');
+      toast.error('Please upload both resume and profile picture.');
       return;
     }
   
@@ -147,13 +146,9 @@ function Resume() {
         throw new Error("Image upload failed. Try again.");
       }
   
-      console.log("Uploaded Image URL:", uploadedImageURL);
-  
       const extractedText = await extractTextFromPDF(resume);
-      console.log("Extracted Resume Text:", extractedText);
   
       const generatedScript = await generateScript(extractedText);
-      console.log("Generated Video Script:", generatedScript);
   
       if (user) {
         const userdataRef = doc(firestore, 'userdata', user.uid);
@@ -165,17 +160,17 @@ function Resume() {
           updatedAt: serverTimestamp(),
         });
   
-        alert('Upload & script generation successful!');
+        toast.success('Upload & script generation successful!');
         router.push('/review_resume_prompt'); 
       }
     } catch (error) {
       console.error('Error processing files:', error);
-      alert('Upload failed. Please try again.');
+      toast.error('Upload failed. Please try again.');
     } finally {
       setUploading(false);
     }
   };
-  
+
   return (
     <div className="w-full h-screen p-3 flex items-center justify-center">
       <div className="flex flex-col bg-opacity-60 backdrop-blur-lg items-center justify-center p-8 max-w-lg w-full rounded-3xl shadow-2xl border border-gray-300">

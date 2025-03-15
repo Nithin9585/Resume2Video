@@ -10,20 +10,23 @@ export async function POST(req) {
       return Response.json({ error: "Missing parsedResume data" }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `
       You are an AI assistant generating a 30-40 second video script based on a parsed resume.
-      The script should sound natural and engaging, structured as follows:
+      The script should be concise and only include what the person would say.
 
-      1. **Introduction** (Name, location, brief background)
-      2. **Education** (College, major, year)
-      3. **Internships** (Company name, role, key contributions)
-      4. **Projects** (Mention 1-2 major projects with impact)
-      5. **Certifications & Achievements** (Highlight notable ones)
-      6. **Skills & Spoken Languages** (Summarize technical and language skills)
+      Structure the script as follows:
 
-      Format the response naturally as if the person is speaking in a video.
+      1. **Introduction**: Start by stating your name and a brief, engaging introduction (e.g., "Hi, I'm [Name] from [Location]").
+      2. **Education**: Briefly mention your college, major, and year of study.
+      3. **Internships**: Mention the company name and your role, highlighting one key contribution or learning.
+      4. **Projects**: Briefly describe 1-2 interesting projects and their purpose.
+      5. **Achievements**: Highlight any significant achievements or recognitions.
+      6. **Skills & Languages**: List your key technical skills and spoken languages.
+      7. **Closing**: End with a call to action or a brief positive statement (e.g., "I'm eager to connect and learn more!").
+
+      Format the response as a direct speech, without any extra descriptions about video shots, transitions, or your tone. Focus solely on the words the person would speak.
 
       Here is the parsed resume data:
       ${parsedResume}
@@ -33,10 +36,10 @@ export async function POST(req) {
       contents: [{ role: "user", parts: [{ text: prompt }] }]
     });
 
-    console.log("API Response:", JSON.stringify(response, null, 2)); 
+    console.log("API Response:", JSON.stringify(response, null, 2));
 
-    const candidates = response.response?.candidates; 
-    
+    const candidates = response.response?.candidates;
+
     if (!candidates || candidates.length === 0) {
       throw new Error("No candidates returned from Gemini API");
     }
