@@ -9,9 +9,10 @@ import { useRouter } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import Loading from '../Loading';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 function ReviewResumePrompt() {
-  const [script, setScript] = useState(''); // Store fetched script
+  const [script, setScript] = useState(''); 
   const [imagePreview, setImagePreview] = useState('');
   const [isEditingScript, setIsEditingScript] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -107,13 +108,16 @@ function ReviewResumePrompt() {
         </div>
 
         <div className="flex justify-center">
+          <Link href="/Selectoptions">
           <Button
             className="bg-gradient-to-r from-teal-500 to-blue-600 text-white py-3 px-8 rounded-xl flex items-center shadow-md hover:shadow-lg transition-shadow cursor-pointer"
             onClick={handleGenerateVideo}
           >
             <PlayCircle className="mr-2 h-5 w-5" />
-            Generate Video
+             Choose Avatars
           </Button>
+          </Link>
+
         </div>
       </div>
     </div>
