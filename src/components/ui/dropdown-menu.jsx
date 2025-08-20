@@ -1,29 +1,23 @@
 "use client"
-
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
-
 import { cn } from "@/lib/utils"
-
 function DropdownMenu({
   ...props
 }) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 }
-
 function DropdownMenuPortal({
   ...props
 }) {
   return (<DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />);
 }
-
 function DropdownMenuTrigger({
   ...props
 }) {
   return (<DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />);
 }
-
 function DropdownMenuContent({
   className,
   sideOffset = 4,
@@ -42,13 +36,11 @@ function DropdownMenuContent({
     </DropdownMenuPrimitive.Portal>)
   );
 }
-
 function DropdownMenuGroup({
   ...props
 }) {
   return (<DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />);
 }
-
 function DropdownMenuItem({
   className,
   inset,
@@ -67,7 +59,6 @@ function DropdownMenuItem({
       {...props} />)
   );
 }
-
 function DropdownMenuCheckboxItem({
   className,
   children,
@@ -93,13 +84,11 @@ function DropdownMenuCheckboxItem({
     </DropdownMenuPrimitive.CheckboxItem>)
   );
 }
-
 function DropdownMenuRadioGroup({
   ...props
 }) {
   return (<DropdownMenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />);
 }
-
 function DropdownMenuRadioItem({
   className,
   children,
@@ -123,7 +112,6 @@ function DropdownMenuRadioItem({
     </DropdownMenuPrimitive.RadioItem>)
   );
 }
-
 function DropdownMenuLabel({
   className,
   inset,
@@ -137,7 +125,6 @@ function DropdownMenuLabel({
       {...props} />)
   );
 }
-
 function DropdownMenuSeparator({
   className,
   ...props
@@ -149,7 +136,6 @@ function DropdownMenuSeparator({
       {...props} />)
   );
 }
-
 function DropdownMenuShortcut({
   className,
   ...props
@@ -161,13 +147,11 @@ function DropdownMenuShortcut({
       {...props} />)
   );
 }
-
 function DropdownMenuSub({
   ...props
 }) {
   return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />;
 }
-
 function DropdownMenuSubTrigger({
   className,
   inset,
@@ -188,7 +172,6 @@ function DropdownMenuSubTrigger({
     </DropdownMenuPrimitive.SubTrigger>)
   );
 }
-
 function DropdownMenuSubContent({
   className,
   ...props
@@ -203,7 +186,6 @@ function DropdownMenuSubContent({
       {...props} />)
   );
 }
-
 export {
   DropdownMenu,
   DropdownMenuPortal,
