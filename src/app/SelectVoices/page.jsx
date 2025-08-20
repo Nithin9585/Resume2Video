@@ -1,11 +1,12 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';  // Import Link from 'next/link'
-import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import Loading from '../Loading';
-function SelectVoices() {
+
+function SelectVoicesContent() {
   const [voices, setVoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -148,4 +149,24 @@ function SelectVoices() {
     </div>
   );
 }
-export default SelectVoices;
+
+// Loading component for Suspense fallback
+function SelectVoicesLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-400 mx-auto"></div>
+        <p className="mt-4 text-lg text-white">Loading voice selection...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main export with Suspense boundary
+export default function SelectVoices() {
+  return (
+    <Suspense fallback={<SelectVoicesLoading />}>
+      <SelectVoicesContent />
+    </Suspense>
+  );
+}

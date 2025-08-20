@@ -64,7 +64,7 @@ export const useApiCall = () => {
                 await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt - 1)));
             }
         }
-    }, []);
+    }, [cache]);
     const retry = useCallback(() => {
         setError(null);
         setLoading(false);
