@@ -65,7 +65,7 @@ class FileUploadService {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
             const uploadOptions = this.generateUploadOptions(fileType);
-            
+
             console.log('Starting file upload:', {
                 name: file.name,
                 size: file.size,
@@ -85,7 +85,7 @@ class FileUploadService {
                 );
                 uploadStream.end(buffer);
             });
-            
+
             console.log('Upload successful:', {
                 publicId: result.public_id,
                 secureUrl: result.secure_url,
@@ -162,7 +162,7 @@ export async function POST(request) {
         }
         const result = await uploadService.uploadFile(file, validation.fileType);
         const processingTime = Date.now() - startTime;
-        
+
         console.log('Upload completed successfully:', {
             processingTime: `${processingTime}ms`,
             fileType: validation.fileType

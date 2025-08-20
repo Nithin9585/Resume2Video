@@ -81,7 +81,7 @@ class VideoGenerationService {
   async generateVideo(avatarId, voiceId, script) {
     this.validateApiKey();
     const payload = this.createVideoPayload(avatarId, voiceId, script);
-    
+
     const response = await this.makeRequestWithRetry(`${this.baseUrl}/v2/video/generate`, {
       method: 'POST',
       headers: {
@@ -137,14 +137,14 @@ export async function POST(request) {
   const startTime = Date.now();
   try {
     const body = await request.json();
-    
+
     console.log('Received video generation request:', {
       hasAvatarId: !!avatarId,
       hasVoiceId: !!voiceId,
       scriptLength: script?.length || 0,
       timestamp: new Date().toISOString()
     });
-    
+
     const { avatarId, voiceId, script } = body;
     const videoService = new VideoGenerationService();
     const validation = videoService.validateRequest({ avatarId, voiceId, script });
@@ -157,12 +157,12 @@ export async function POST(request) {
     }
     const result = await videoService.generateVideo(avatarId, voiceId, script);
     const processingTime = Date.now() - startTime;
-    
+
     console.log('Video generation completed:', {
       videoId: result.videoId,
       processingTime: `${processingTime}ms`
     });
-    
+
     return Response.json({
       success: true,
       video_id: result.videoId,

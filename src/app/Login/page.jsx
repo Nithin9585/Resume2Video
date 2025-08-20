@@ -69,7 +69,7 @@ function Login() {
         await signOut(auth);
         toast.error(
           <div>
-            Please verify your email before logging in. 
+            Please verify your email before logging in.
             <br />
             <Link href="/verify-email" className="text-blue-400 underline">
               Click here to resend verification email
@@ -192,8 +192,8 @@ function Login() {
               onClick={handleResetPassword}
               disabled={!emailValid}
               className={`text-sm transition-colors ${emailValid
-                  ? 'text-blue-400 hover:text-blue-300'
-                  : 'text-gray-500 cursor-not-allowed'
+                ? 'text-blue-400 hover:text-blue-300'
+                : 'text-gray-500 cursor-not-allowed'
                 }`}
             >
               {resetEmailSent ? '✓ Reset email sent' : 'Forgot password?'}
@@ -204,8 +204,8 @@ function Login() {
             type="submit"
             disabled={loading || !emailValid || formData.password.length < 6}
             className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 ${loading || !emailValid || formData.password.length < 6
-                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
+              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
               }`}
           >
             {loading ? (

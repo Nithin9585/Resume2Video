@@ -210,7 +210,7 @@ export async function POST(req) {
       }, { status: 400 });
     }
     const { parsedResume } = body;
-    
+
     const placeholderAnalysis = ResumeValidator.detectPlaceholderContent(parsedResume);
     const extractedInfo = ResumeValidator.extractValidInformation(parsedResume);
     if (placeholderAnalysis.severity === 'high') {

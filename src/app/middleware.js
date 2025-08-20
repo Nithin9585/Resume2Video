@@ -12,11 +12,11 @@ export async function middleware(req) {
   }
   try {
     const decodedToken = await admin.auth().verifyIdToken(token.value);
-    
+
     if (!decodedToken.email_verified) {
       return NextResponse.redirect(new URL('/Login', req.url));
     }
-    
+
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL('/Login', req.url));

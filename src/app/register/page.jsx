@@ -267,18 +267,18 @@ function Register() {
                     <div
                       key={level}
                       className={`h-1 flex-1 rounded ${level <= passwordStrength.score
-                          ? passwordStrength.score <= 2
-                            ? 'bg-red-500'
-                            : passwordStrength.score <= 4
-                              ? 'bg-yellow-500'
-                              : 'bg-green-500'
-                          : 'bg-gray-600'
+                        ? passwordStrength.score <= 2
+                          ? 'bg-red-500'
+                          : passwordStrength.score <= 4
+                            ? 'bg-yellow-500'
+                            : 'bg-green-500'
+                        : 'bg-gray-600'
                         }`}
                     />
                   ))}
                 </div>
                 <p className={`text-xs ${passwordStrength.score <= 2 ? 'text-red-400' :
-                    passwordStrength.score <= 4 ? 'text-yellow-400' : 'text-green-400'
+                  passwordStrength.score <= 4 ? 'text-yellow-400' : 'text-green-400'
                   }`}>
                   {passwordStrength.feedback}
                 </p>
@@ -330,8 +330,8 @@ function Register() {
             type="submit"
             disabled={loading || !formValid}
             className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 ${loading || !formValid
-                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
+              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
               }`}
           >
             {loading ? (

@@ -255,9 +255,9 @@ export default function DownloadPage() {
                       controls
                       className="w-full h-auto max-h-96 object-contain"
                       poster=""
-                      onLoadStart={() => {}}
-                      onCanPlay={() => {}}
-                      onError={(e) => {}}
+                      onLoadStart={() => { }}
+                      onCanPlay={() => { }}
+                      onError={(e) => { }}
                     >
                       Your browser does not support the video tag.
                     </video>
